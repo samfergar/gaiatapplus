@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd
 from astroquery.gaia import Gaia
 import json
+import logging
+
+# Suppress INFO log messages from astroquery
+logging.getLogger('astroquery').setLevel(logging.WARNING)
 
 Gaia.MAIN_GAIA_TABLE = "gaiadr3.gaia_source"  # Data Release 3, default
 
