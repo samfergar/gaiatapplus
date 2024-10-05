@@ -59,6 +59,7 @@ results
 pd.set_option('display.max_rows', None)  # Display all rows
 pd.set_option('display.max_columns', None)  # Display all columns
 
+
 # Define additional columns you want to select
 columns_to_select = ["ra", "dec", "phot_g_mean_mag", "parallax", "pmra", "pmdec"]  # Add any other columns you want
 
@@ -81,8 +82,13 @@ results = job.get_results()
 # Convert results to a Pandas DataFrame
 df = results.to_pandas()
 
+# Calculate distance from parallax (in parsecs)
+# Assuming parallax is in milliarcseconds (mas)
+df["distance"] = 1000 / df["parallax"]
+
+
 # Display the DataFrame
-#print(df)
+print(df)
 
 ##### filtering by brightness
 # Define the brightness lower and upper bounds
@@ -107,4 +113,22 @@ coord = astropy.coordinates.TETE(
     obstime=astropy.time.Time("2023-04-12")
 )
 
-coord = coord.transform_to(astropy.coordinates.Galactic())
+#coord = coord.transform_to(astropy.coordinates.Galactic())
+
+
+### Conversion of new coordinates
+
+ra_values = df["ra"].values  # Extracts the 'ra' column as a NumPy array
+dec_values = df["dec"].values 
+
+def apply_rigid_motion(planet_coordinates, stars):
+    '''
+    takes in the coordinates of a planet and a set of stars and outputs the new coordinates of the stars relative to the planet
+    '''
+    pass
+
+def plane(coordinate_radius, ):
+    '''
+    takes in the galactic coordinate radius of a given planet and outputs coordinates of stars in a planar projection elevated the distance of the radius. 
+    '''
+    pass
