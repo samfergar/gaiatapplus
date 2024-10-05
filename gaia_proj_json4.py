@@ -85,7 +85,7 @@ df[['x', 'y', 'z']] = df.apply(
     result_type='expand'
 )
 
-#filter to keep only positive z values (visible hemisphere)
+# Filter to keep only rows with positive z values (visible hemisphere)
 df = df[df['z'] > 0]
 
 # Call the planar_projection function
@@ -94,10 +94,8 @@ df_projection = planar_projection(df)
 # Drop NaN values if any
 df_projection = df_projection.dropna()
 
-
-
 # Create a DataFrame for x, y, and their modulus
-projected_values = df_projection[['x_projected', 'y_projected']]
+projected_values = df_projection[['x_projected', 'y_projected']].copy()
 
 # Calculate the modulus for each projected point
 projected_values['modulus'] = np.sqrt(
@@ -105,15 +103,23 @@ projected_values['modulus'] = np.sqrt(
     projected_values['y_projected']**2
 )
 
-# Find the maximum modulus
+# Find the normalization value (mean of modulus)
 normalization_value = projected_values['modulus'].mean()
 
 # Normalize x and y by dividing them by normalization_value and multiplying by 200
 projected_values['x_normalized'] = projected_values['x_projected'] / normalization_value * 200
 projected_values['y_normalized'] = projected_values['y_projected'] / normalization_value * 200
 
+# Normalize phot_g_mean_mag from 0 to 1
+# Assuming 'phot_g_mean_mag' is part of df and aligns with df_projection
+min_mag = df['phot_g_mean_mag'].min()
+max_mag = df['phot_g_mean_mag'].max()
+
+# Add the normalized magnitude to projected_values
+projected_values['phot_g_mean_mag'] = (df['phot_g_mean_mag'] - min_mag) / (max_mag - min_mag)
+
 # Convert projected values to a list of lists for JSON
-normalized_values = projected_values[['x_normalized', 'y_normalized']].values.tolist()
+normalized_values = projected_values[['x_normalized', 'y_normalized', 'phot_g_mean_mag']].values.tolist()
 
 # Convert to JSON format
 projected_json = json.dumps(normalized_values)
