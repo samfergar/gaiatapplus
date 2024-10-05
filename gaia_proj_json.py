@@ -86,6 +86,15 @@ df_projection = planar_projection(df)
 # Convert projected values to a list of lists
 projected_values = df_projection[['x_projected', 'y_projected']].values.tolist()
 
+# Calculate the maximum distance
+max_distance = df['distance'].max()
+
+# Calculate the multiplication factor
+factor = 200 / max_distance
+
+# Convert projected values to a list of lists and multiply by the factor
+projected_values = (df_projection[['x_projected', 'y_projected']].values * factor).tolist()
+
 # Convert to JSON format
 projected_json = json.dumps(projected_values)
 
