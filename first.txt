@@ -1,0 +1,16 @@
+Requisitos
+
+- Posicion 2D en un plano (centrado en el cénit)
+    una aproximacion del brillo podría ser (1/distancia_observador)*(1 + parametro_tamaño_tipo)*K
+- Nombre o ID
+
+Datos del exoplaneta: 
+    posicion viene dada por galactic longitude and latitude (centrado en el sol)
+
+Objetivo:
+recalcular las coordenadas relativas de las estrellas dado el nuevo centro dado por coordenadas
+
+estrellas visibles: 
+    por encima del ecuador del planeta
+    It is estimated you can see 9000 stars with the unaided eye
+    (si una estrella está a más o menos 4 años luz del punto de visión la considero una estrella no análoga al sol)

@@ -55,24 +55,22 @@ results['distance_lightyear'] = results['distance_gspphot'].to(u.lightyear)
 results['radial_velocity_ms'] = results['radial_velocity'].to(u.meter/u.second)
 results
 '''
+# Set Pandas to display all rows and columns
+pd.set_option('display.max_rows', None)  # Display all rows
+pd.set_option('display.max_columns', None)  # Display all columns
 
-# Your SQL query
-query = f"""
-SELECT TOP 10 * FROM gaiadr3.gaia_source
-WHERE has_xp_sampled = 'True'
-"""
-
-# Define the columns you want to select
-columns_to_select = ["ra", "dec", "phot_g_mean_mag"]  # Example columns
+# Define additional columns you want to select
+columns_to_select = ["ra", "dec", "phot_g_mean_mag", "parallax", "pmra", "pmdec"]  # Add any other columns you want
 
 # Create a string for the column names to use in the SQL query
 columns_string = ", ".join(columns_to_select)
 
-# Your SQL query using the specified columns
+# Your updated SQL query using the specified columns
 query = f"""
-SELECT TOP 10 {columns_string} FROM gaiadr3.gaia_source
+SELECT TOP 100 {columns_string} FROM gaiadr3.gaia_source  
 WHERE has_xp_sampled = 'True'
-"""
+"""  
+# SELECT TOP {} - here you can choose the number of rows shown
 
 # Launch the asynchronous job
 job = Gaia.launch_job_async(query)
@@ -83,12 +81,30 @@ results = job.get_results()
 # Convert results to a Pandas DataFrame
 df = results.to_pandas()
 
-
-# Get the list of all column names
-column_names = df.columns.tolist()
-# Display the list of column names
-print("Column names:", column_names)
-
 # Display the DataFrame
-print(df)
+#print(df)
 
+##### filtering by brightness
+# Define the brightness lower and upper bounds
+lower_bound = 10.0  # Example: stars brighter than magnitude 10
+upper_bound = 15.0  # Example: stars fainter than magnitude 15
+
+# Filter the DataFrame for rows where 'phot_g_mean_mag' is between the bounds
+filtered_stars_df = df[(df["phot_g_mean_mag"] > lower_bound) & (df["phot_g_mean_mag"] < upper_bound)]
+
+# Display the filtered DataFrame
+print(filtered_stars_df)
+
+
+# Coordinate conversion
+import astropy.units as u
+import astropy.time
+import astropy.coordinates
+
+coord = astropy.coordinates.TETE(
+    ra=25 * u.deg,
+    dec=45 * u.deg,
+    obstime=astropy.time.Time("2023-04-12")
+)
+
+coord = coord.transform_to(astropy.coordinates.Galactic())
