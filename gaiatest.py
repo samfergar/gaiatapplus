@@ -16,11 +16,8 @@ r.pprint(max_lines=12, max_width=130)
 #Gaia.ROW_LIMIT controls the number of rows. -1 for unlimited rows
 
 #Cone search
-import astropy.units as u
-from astropy.coordinates import SkyCoord
-from astroquery.gaia import Gaia
 
-Gaia.ROW_LIMIT = 50  # Ensure the default row limit.
+Gaia.ROW_LIMIT = 8  # Ensure the default row limit.
 coord = SkyCoord(ra=280, dec=-60, unit=(u.degree, u.degree), frame='icrs')
 #RA (right ascension) and Dec (declination) are the coordinates 
 # on the sky that correspond to longitude and latitude on Earth.
@@ -30,4 +27,10 @@ r = j.get_results()
 r.pprint()
 
 
+# Loading tables
 
+from astroquery.gaia import Gaia
+tables = Gaia.load_tables(only_names=True, include_shared_tables=True)
+
+for table in (tables):
+  print(table.get_qualified_name())
