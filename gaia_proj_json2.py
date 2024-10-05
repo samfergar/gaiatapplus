@@ -52,15 +52,17 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
 # Define additional columns you want to select
-columns_to_select = ["ra", "dec", "phot_g_mean_mag", "parallax", "pmra", "pmdec"]
+columns_to_select = ["ra", "dec", "phot_g_mean_mag", "parallax", "pmra", "pmdec", "random_index"]
 columns_string = ", ".join(columns_to_select)
 
-# Your updated SQL query using the specified columns
+# Your updated SQL query using RANDOM_INDEX to select random rows
 query = f"""
-SELECT {columns_string} FROM gaiadr3.gaia_source_lite
+SELECT * 
+FROM gaiadr3.gaia_source_lite
 WHERE has_xp_sampled = 'True'
-AND random_index BETWEEN 5000 AND 10000
-"""  
+AND random_index BETWEEN 500000 AND 1000000
+LIMIT 2000;
+ """
 
 # Launch the asynchronous job
 job = Gaia.launch_job_async(query)
@@ -83,11 +85,6 @@ df[['x', 'y', 'z']] = df.apply(
 
 # Call the planar_projection function
 df_projection = planar_projection(df)
-
-df_projection = df_projection.dropna()
-
-# Convert projected values to a list of lists
-projected_values = df_projection[['x_projected', 'y_projected']].values.tolist()
 
 # Calculate the maximum distance
 max_distance = df['distance'].max()

@@ -74,32 +74,43 @@ df = results.to_pandas()
 # Calculate distance from parallax (in parsecs)
 df["distance"] = 1000 / df["parallax"]
 
-# Convert celestial coordinates to Cartesian coordinates and add to DataFrame
+# Convert celestial coordinates to Cartesian coordinates
 df[['x', 'y', 'z']] = df.apply(
     lambda row: celestial_to_cartesian(row['ra'], row['dec'], row['distance']),
     axis=1,
     result_type='expand'
 )
 
+#filter to keep only positive z values (visible hemisphere)
+df = df[df['z'] > 0]
+
 # Call the planar_projection function
 df_projection = planar_projection(df)
 
+# Drop NaN values if any
 df_projection = df_projection.dropna()
 
-# Convert projected values to a list of lists
-projected_values = df_projection[['x_projected', 'y_projected']].values.tolist()
+# Create a DataFrame for x, y, and their modulus
+projected_values = df_projection[['x_projected', 'y_projected']]
 
-# Calculate the maximum distance
-max_distance = df['distance'].max()
+# Calculate the modulus for each projected point
+projected_values['modulus'] = np.sqrt(
+    projected_values['x_projected']**2 + 
+    projected_values['y_projected']**2
+)
 
-# Calculate the multiplication factor
-factor = 200 / max_distance
+# Find the maximum modulus
+normalization_value = projected_values['modulus'].mean()
 
-# Convert projected values to a list of lists and multiply by the factor
-projected_values = (df_projection[['x_projected', 'y_projected']].values * factor).tolist()
+# Normalize x and y by dividing them by normalization_value and multiplying by 200
+projected_values['x_normalized'] = projected_values['x_projected'] / normalization_value * 200
+projected_values['y_normalized'] = projected_values['y_projected'] / normalization_value * 200
+
+# Convert projected values to a list of lists for JSON
+normalized_values = projected_values[['x_normalized', 'y_normalized']].values.tolist()
 
 # Convert to JSON format
-projected_json = json.dumps(projected_values)
+projected_json = json.dumps(normalized_values)
 
 # Display the JSON result
 print(projected_json)
