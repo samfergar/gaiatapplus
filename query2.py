@@ -92,3 +92,4 @@ print("Distance between P1 and P2 (in parsecs):", distance)
 
 # Display the updated DataFrame with the new calculations
 print(df[["ra", "dec", "parallax", "distance", "x", "y", "z"]])  # Display relevant columns
+
