@@ -16,6 +16,7 @@ We want to bring back the warmth and familiarity that can only be obtained by re
 Figma slides: https://www.figma.com/design/TieiGjp3bZEGPYUniJ0TG5/NASA-Space-Apps?node-id=18-30&node-type=canvas&t=7CySUYSDM01vARwV-0
 Github repository for the project: https://github.com/Guaaay/exosky-react
 Github repository for processing the data from Gaia: https://github.com/samfergar/gaiatapplus
+Github repository Godot: https://github.com/Guaaay/exomythology_godot
 
 # Link to Final Project
 
