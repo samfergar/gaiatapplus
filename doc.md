@@ -18,6 +18,9 @@ We want to bring back the warmth and familiarity that can only be obtained by re
 
 # Detailed Project Description
 
+## Mathematical Framework
+Exomythology makes use of well established mathematical tools used in astronomical research. In order to display a range of stars, we first do a selection based on perception of a distant body, being brightness the main contributor. After said selection, we project the stars on a cenital plane tangent to the celestial globe, taking the distance of the most distant star as the radius. This projection is then normalized in a given range to fit in the dome projection. 
+
 # NASA & Space Agency Partner Data
 
 -Gaia DR3 links
@@ -31,7 +34,7 @@ for the DPAC has been provided by national institutions, in particular the insti
 -Exoplanet Archive
 https://exoplanetarchive.ipac.caltech.edu/docs/data.html
 
-This research has made use of the NASA Exoplanet Archive, which is operated by the California Institute of Technology, 
+This work has made use of the NASA Exoplanet Archive, which is operated by the California Institute of Technology, 
 under contract with the National Aeronautics and Space Administration under the Exoplanet Exploration Program.
 
 # References
