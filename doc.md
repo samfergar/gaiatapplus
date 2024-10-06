@@ -13,9 +13,24 @@ We want to bring back the warmth and familiarity that can only be obtained by re
 
 # Link to Project Demo
 
+Figma slides: https://www.figma.com/design/TieiGjp3bZEGPYUniJ0TG5/NASA-Space-Apps?node-id=18-30&node-type=canvas&t=7CySUYSDM01vARwV-0
+Github repository for the project: https://github.com/Guaaay/exosky-react
+Github repository for processing the data from Gaia: https://github.com/samfergar/gaiatapplus
+
 # Link to Final Project
 
+https://exomythology.earth/
+
 # Detailed Project Description
+
+Exomythology is an interactive 3D web platform. It is composed 
+
+## Graphic Identity
+The exploration of the logo started out with the creation of a moodboard based on the key words from our value proposal. The moodboard provided us with a color palette and then we started with the font trial.
+
+For the design of this logo, we used At Haüss which is a contemporary neo-grotesque typeface. It is a pure and elegant typeface that stands on a solid and balanced structure. Born for maximum performance in communication, and great to be used on interfaces due to its high legibility.
+
+ExoMythology is a product that brings both technology and stories to the user, so we wanted to create a logo that reflected both our storytelling and how we were going to use technology to bring them to life.
 
 ## Mathematical Framework
 Exomythology makes use of well established mathematical tools used in astronomical research, as well as some basic notions of algebra. In order to display a range of stars, we first do a selection based on perception of a distant body, being brightness the main contributor. After said selection, we project the stars on a plane tangent to the celestial globe, taking the distance of the most distant star as the radius. This projection is then normalized in a given range to fit in the dome projection. 
