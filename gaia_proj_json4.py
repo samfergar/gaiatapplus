@@ -63,7 +63,7 @@ columns_string = ", ".join(columns_to_select)
 query = f"""
 SELECT {columns_string} FROM gaiadr3.gaia_source_lite
 WHERE has_xp_sampled = 'True'
-AND random_index BETWEEN 5000 AND 10000
+AND random_index BETWEEN 0 AND 200000
 """  
 
 # Launch the asynchronous job
