@@ -39,16 +39,30 @@ under contract with the National Aeronautics and Space Administration under the 
 
 # References
 
-* **<a href="https://react.dev/"> React </a>** (*MIT License. Copyright (c) Meta Platforms, Inc. and affiliates.*)
+* **<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/"> JavaScript </a>** (*ECMA International. (2024). Standard ECMA-262: ECMAScript® 2024 Language Specification*)
 
-* **<a href="https://mui.com/material-ui/"> Material UI </a>** (*open-core, MIT-licensed library*)
+* **<a href="https://react.dev/"> React </a>** (*MIT License. Copyright (c) Meta Platforms, Inc. and affiliates*)
 
-* **<a href="https://godotengine.org/"> GODOT Engine </a>** (*free and open source software released under the permissive MIT license*)
+* **<a href="https://mui.com/material-ui/"> Material UI </a>** (*Open-core, MIT-licensed library*)
+
+* **<a href="https://nodejs.org/en"> NodeJS </a>** (*MIT License. Copyright Node.js Website WG contributors. All rights reserved*)
+
+* **<a href="https://godotengine.org/"> GODOT Engine </a>** (*Free and open source software released under the permissive MIT license*)
 
 * **<a href="https://www.python.org/"> Python </a>** (*Open Source*)
 
-* **<a href="https://www.astropy.org/index.html"> Astropy </a>** (*BSD 3-Clause "New" or "Revised" License. Copyright (c) 2011-2024, Astropy Developers. All rights reserved.*)
+* **<a href="https://www.astropy.org/index.html"> Astropy </a>** (*BSD 3-Clause "New" or "Revised" License. Copyright (c) 2011-2024, Astropy Developers. All rights reserved*)
 
-* **<a href="https://astroquery.readthedocs.io/en/latest/"> Astroquery </a>** (*BSD 3-Clause "New" or "Revised" License. Copyright (c) 2011-2024, Astroquery Developers. All rights reserved.*)
+* **<a href="https://astroquery.readthedocs.io/en/latest/"> Astroquery </a>** (*BSD 3-Clause "New" or "Revised" License. Copyright (c) 2011-2024, Astroquery Developers. All rights reserved*)
+
+* **<a href="https://fastapi.tiangolo.com/"> FastAPI </a>** (*The MIT License (MIT). Copyright (c) 2018 Sebastián Ramírez*)
+
+* **<a href="https://mariadb.org/"> MariaDB </a>** (*GNU General Public License, version 2*)
+
+* **<a href="https://www.figma.com/es-la/"> Figma </a>** (*Collaborative web application for interface design*)
+
+* **<a href="https://www.godaddy.com/es-es"> GoDaddy </a>** (*American publicly traded Internet domain registry, domain registrar and web hosting company*)
+
+* **<a href="https://www.ovhcloud.com/en/vps/"> OVHCloud </a>** (*Virtual Private Server (VPS)*)
 
 # Use of Artificial Intelligence
