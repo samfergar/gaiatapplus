@@ -1,5 +1,4 @@
-# Project Name
-**Exomythology**
+# Exomythology
 
 # High-Level Project Summary
 🌌 Since ancient times, humans have looked at the sky to admire the beauty of the stars ✨ and find in them answers to some of the most deepest questions of life. From generation to generation, the stars remain in the firmament, sheltering our earth and shining for us, but most importantly, serving as an excuse to reunite and tell **stories** 📖
@@ -21,7 +20,9 @@ We want to bring back the warmth and familiarity that can only be obtained by re
 ## Mathematical Framework
 Exomythology makes use of well established mathematical tools used in astronomical research, as well as some basic notions of algebra. In order to display a range of stars, we first do a selection based on perception of a distant body, being brightness the main contributor. After said selection, we project the stars on a cenital plane tangent to the celestial globe, taking the distance of the most distant star as the radius. This projection is then normalized in a given range to fit in the dome projection. 
 
-Firstly, given a set of celestial coordinates (corresponding to target stars), we make a conversion into cartesian coordinates and recalculate the relative position of stars with a simple vector subtraction. Then we set that point as our new origin and recalculate all distances. Distance is calculated in parsecs from stellar parallax. 
+Firstly, given a set of celestial coordinates (corresponding to target stars), we make a conversion into cartesian coordinates and recalculate the relative position of stars with a simple vector subtraction. Then we set that point as our new origin and recalculate all distances. Distance is calculated in *parsecs* from *stellar parallax*. 
+
+Transformation from stellar coordinates to cartesian coordinates is performed as follows:
 
 $$
     x = r \cdot \cos(dec) \cos(Ra) \\
@@ -31,7 +32,9 @@ $$
 
 Where $r$ is the distance (measured in *parsecs*) to the exoplanet or the sun, $Ra$ is the *right ascension* (i.e the "longitude" analogue, measured in *degrees*) and $dec$ is the *declination* (i.e the "latitude", measured in *degrees*).
 
-We then use the following projection onto the cenital plane. We only select the stars with a positive z value to ensure we only display one hemisphere. To make all projected distances fit a convenient range, we then divide all distances by a normalization value. This is then served to the graphical interface to form the stellar dome.
+We then use the following projection onto the cenital plane. We only select the stars with a positive $z$ value to ensure we only display one hemisphere. To make all projected distances fit a convenient range, we then divide all distances by a normalization value. This is then served to the graphical interface to form the ***stellar dome***.
+
+Lastly, projection onto the cenital plane is performed as follows:
 
 $$
     \sigma : \mathbb{R}³ \rightarrow \{ z=R \} \\
