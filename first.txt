@@ -14,3 +14,10 @@ estrellas visibles:
     por encima del ecuador del planeta
     It is estimated you can see 9000 stars with the unaided eye
     (si una estrella está a más o menos 4 años luz del punto de visión la considero una estrella no análoga al sol)
+
+
+-- diccionario json con el ID y la lista tiene posicion y brillo. 
+
+posicion exo (ra,dec) 
+valor de normalizacion del plano
+devolver diccionario con brillo relativo
