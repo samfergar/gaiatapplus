@@ -66,22 +66,21 @@ def planar_projection(df):
     
     return df_projection
 
-def recalculate_star_positions(planet_ra, planet_dec, planet_distance, star_catalog_df):
+def recalculate_star_positions(planet_ra, planet_dec, star_catalog_df):
     """
     Adjust star positions relative to the exoplanet's coordinates and recalculate brightness.
     
     Parameters:
     - planet_ra (float): Exoplanet's right ascension in degrees.
     - planet_dec (float): Exoplanet's declination in degrees.
-    - planet_distance (float): Exoplanet's distance in parsecs.
     - star_catalog_df (pd.DataFrame): DataFrame of star catalog with RA, Dec, and magnitude.
     
     Returns:
     - pd.DataFrame: DataFrame with recalculated x, y positions and brightness.
     """
-    # Convert exoplanet celestial coordinates to Cartesian
-    exo_x, exo_y, exo_z = celestial_to_cartesian(planet_ra, planet_dec, planet_distance)
-    
+    # Assume the exoplanet is at infinite distance (i.e., it's the reference point)
+    exo_x, exo_y, exo_z = celestial_to_cartesian(planet_ra, planet_dec, 1e12)
+
     # Convert stars' celestial coordinates to Cartesian
     star_catalog_df[['x', 'y', 'z']] = star_catalog_df.apply(
         lambda row: celestial_to_cartesian(row['ra'], row['dec'], row['distance']),
@@ -125,18 +124,19 @@ def recalculate_star_positions(planet_ra, planet_dec, planet_distance, star_cata
 
     # Merge brightness back with projected positions
     df_projection['relative_brightness'] = star_catalog_df['relative_brightness_normalized'].values
+    df_projection['source_id'] = star_catalog_df['source_id'].values  # Add the star's ID
     
     return df_projection
 
 @app.get("/star_positions/")
-async def get_stars(planet_ra: float, planet_dec: float, planet_distance: float, limit: int = 10):
+async def get_stars(planet_ra: float, planet_dec: float, limit: int = 10):
 
     # Set Pandas to display all rows and columns
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
 
-    # Define additional columns to select from Gaia
-    columns_to_select = ["ra", "dec", "phot_g_mean_mag", "parallax", "pmra", "pmdec"]
+    # Define additional columns to select from Gaia, including source_id for star identification
+    columns_to_select = ["source_id", "ra", "dec", "phot_g_mean_mag", "parallax", "pmra", "pmdec"]
     columns_string = ", ".join(columns_to_select)
 
     # Query Gaia database
@@ -160,9 +160,9 @@ async def get_stars(planet_ra: float, planet_dec: float, planet_distance: float,
     df = df[df['distance'] > 0].head(limit)
 
     # Recalculate star positions and brightness based on the exoplanet's location
-    star_data = recalculate_star_positions(planet_ra, planet_dec, planet_distance, df)
+    star_data = recalculate_star_positions(planet_ra, planet_dec, df)
 
-    # Convert projected values to a list for JSON
-    star_data_dict = star_data[['x_normalized', 'y_normalized', 'relative_brightness']].to_dict(orient='records')
+    # Convert to the required dictionary format: {star_id: [x_normalized, y_normalized, relative_brightness]}
+    star_data_dict = star_data.set_index('source_id')[['x_normalized', 'y_normalized', 'relative_brightness']].T.to_dict(orient='list')
 
     return star_data_dict
