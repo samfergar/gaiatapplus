@@ -107,10 +107,10 @@ def recalculate_star_positions(planet_ra, planet_dec, star_catalog_df):
     star_catalog_df['relative_brightness_normalized'] = (
         (star_catalog_df['relative_brightness'] - min_brightness) / (max_brightness - min_brightness)
     )
-
+    print(star_catalog_df.columns)
     # Merge brightness back with projected positions
     df_projection['relative_brightness'] = star_catalog_df['relative_brightness_normalized'].values
-    df_projection['source_id'] = star_catalog_df['source_id'].values  # Add the star's ID
+    df_projection['source_id'] = star_catalog_df['SOURCE_ID'].values  # Add the star's ID
     
     return df_projection
 
@@ -158,7 +158,7 @@ async def get_stars(planet_ra: float, planet_dec: float, limit: int = 10):
 
     # Recalculate star positions and brightness based on the exoplanet's location
     star_data = recalculate_star_positions(planet_ra, planet_dec, df)
-
+    print(star_data.columns)
     # Convert to the required dictionary format: {star_id: [x_normalized, y_normalized, relative_brightness]}
     star_data_dict = star_data.set_index('source_id')[['x_normalized', 'y_normalized', 'relative_brightness']].T.to_dict(orient='list')
 
