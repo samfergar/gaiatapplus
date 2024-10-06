@@ -21,6 +21,12 @@ We want to bring back the warmth and familiarity that can only be obtained by re
 ## Mathematical Framework
 Exomythology makes use of well established mathematical tools used in astronomical research. In order to display a range of stars, we first do a selection based on perception of a distant body, being brightness the main contributor. After said selection, we project the stars on a cenital plane tangent to the celestial globe, taking the distance of the most distant star as the radius. This projection is then normalized in a given range to fit in the dome projection. 
 
+Firstly, given a set of celestial coordinates, we make a conversion into cartesian coordinates and recalculate the relative position of stars with a simple vector subtractions. Distance is calculated in parsecs from stellar parallax. 
+
+We use the following canonical projection onto the cenital plane. To make all projected distances fit a convenient range, we then divide all distances by a normalization value. This is then served to the graphical interface to form the stellar dome.
+
+
+
 # NASA & Space Agency Partner Data
 
 -Gaia DR3 links
