@@ -23,7 +23,19 @@ https://exomythology.earth/
 
 # Detailed Project Description
 
-Exomythology is an interactive 3D web platform. It is composed 
+## Web Development 
+Exomythology is an interactive 3D web platform. 
+
+The whole project uses a database (MariaDB) of exoplanets sourced from NASA Exoplanet Archive, along with a table of constellations created from the users. We access to the database using an API from both the client and the game to get all the data to display it on the *Exoplanets* and *Constellations* subpages.
+
+**How to use Exomythology Web:**
+First you can navigate to *Exoplanets* subsection and select one of them. Once you choose an exoplanet,  you can begin exploring the sky from that perspective and view all the constellations created. You also can select some stars creating a new constellation and writing your own mythology!
+
+Next, you can go to Constellations subsection and see all the constellations created by other users and rate them. For each constellation, you will see the name, the mythology behind it, and an audio narration telling the story.
+
+## Godot Constellation Engine
+
+Exomythology uses a Godot Web App compiled to HTML5 using WebGL in the back. The game app is hosted on itch.io and retrieved by our server. It is rendered on the exomythology web app when an exoplanet has been selected. Using the exoplanet id and positional parameters, the game first generates a procedural terrain unique to the exoplanet, using the exoplanet id as a seed. The exoplanet's terrain color is also proceduraly chosen. The game then requests the star data (position and apparent glow) from our backend, and receives it already translated according to the mathematical framework we describe. It then renders a series of glowing spheres projected onto a celestial dome. The game also retrieves the already created constellations along with the stars they involve. The game allows the player to draw constellations between stars. Once drawn, the game will send a message to the surrounding javascript environment. The message is intercepted by the react app and the form to submit a new constellation is shown with the just selected star data.
 
 ## Graphic Identity
 The exploration of the logo started out with the creation of a moodboard based on the key words from our value proposal. The moodboard provided us with a color palette and then we started with the font trial.
