@@ -21,6 +21,22 @@ We want to bring back the warmth and familiarity that can only be obtained by re
 ## Mathematical Framework
 Exomythology makes use of well established mathematical tools used in astronomical research. In order to display a range of stars, we first do a selection based on perception of a distant body, being brightness the main contributor. After said selection, we project the stars on a cenital plane tangent to the celestial globe, taking the distance of the most distant star as the radius. This projection is then normalized in a given range to fit in the dome projection. 
 
+$$
+    x = r \cdot \cos(dec) \cos(Ra) \\
+    y = r \cdot \cos(dec) \sin(Ra) \\
+    z = r \cdot \sin(dec)
+$$
+
+Where $r$ is the distance (measured in *parsecs*) to the exoplanet or the sun, $Ra$ is the *right ascension* (i.e the "longitude", measured in *degrees*) and $dec$ is the *declination* (i.e the "latitude", measured in *degrees*).
+
+$$
+    \sigma : \mathbb{R}³ \rightarrow \{ z=R \} \\
+    \sigma(x,y,z) = (\frac{R\cdot x}{z}, \frac{R\cdot y}{z})  
+$$
+
+Where $\sigma$ is the orthogonal projection over the $z=R$ plane and $R = \max\{d(\bar{x}_{exoplanet}, \bar{x}) | \bar{x} \in S\}$ and $S$ is the set of stars positions in cartesian coordinates such that $\bar{x}_{exoplanet} = (0,0,0)$
+
+
 # NASA & Space Agency Partner Data
 
 -Gaia DR3 links
