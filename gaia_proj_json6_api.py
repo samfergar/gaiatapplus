@@ -1,12 +1,9 @@
 import numpy as np
 import pandas as pd
 from astroquery.gaia import Gaia
-import json
 import logging
-from fastapi import FastAPI, HTTPException
-import os
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -23,17 +20,6 @@ app.add_middleware(
 logging.getLogger('astroquery').setLevel(logging.WARNING)
 
 Gaia.MAIN_GAIA_TABLE = "gaiadr3.gaia_source"  # Data Release 3, default
-
-def cartesian_to_celestial(x, y, z):
-    """Convert Cartesian coordinates (x, y, z) to celestial coordinates (RA, Dec)."""
-    distance = np.sqrt(x**2 + y**2 + z**2)
-    ra_rad = np.arctan2(y, x)  # atan2 handles quadrants correctly
-    if ra_rad < 0:
-        ra_rad += 2 * np.pi
-    dec_rad = np.arcsin(z / distance)
-    ra_deg = np.degrees(ra_rad)
-    dec_deg = np.degrees(dec_rad)
-    return ra_deg, dec_deg
 
 def celestial_to_cartesian(ra, dec, distance):
     """Convert celestial coordinates (RA, Dec) to Cartesian coordinates (x, y, z)."""
@@ -130,6 +116,17 @@ def recalculate_star_positions(planet_ra, planet_dec, star_catalog_df):
 
 @app.get("/star_positions/")
 async def get_stars(planet_ra: float, planet_dec: float, limit: int = 10):
+    """
+    Retrieve star positions and brightness relative to a given exoplanet's position.
+    
+    Parameters:
+    - planet_ra (float): Exoplanet's right ascension in degrees.
+    - planet_dec (float): Exoplanet's declination in degrees.
+    - limit (int): The maximum number of stars to retrieve.
+    
+    Returns:
+    - dict: A dictionary where keys are source_ids and values are lists [x_normalized, y_normalized, relative_brightness].
+    """
 
     # Set Pandas to display all rows and columns
     pd.set_option('display.max_rows', None)
@@ -166,3 +163,4 @@ async def get_stars(planet_ra: float, planet_dec: float, limit: int = 10):
     star_data_dict = star_data.set_index('source_id')[['x_normalized', 'y_normalized', 'relative_brightness']].T.to_dict(orient='list')
 
     return star_data_dict
+
